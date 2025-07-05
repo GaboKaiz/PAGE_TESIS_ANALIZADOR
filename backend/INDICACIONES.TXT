@@ -1,0 +1,4 @@
+DEBES INSTALAR LO SIGUIENNTE:
+python3.13 -m pip install flask pymongo flask-cors pdfplumber scikit-learn
+python3.13 -m pip install pytesseract pillow
+PARA ELLO ESTAMOS USANDO PYTHON 3.13.1
