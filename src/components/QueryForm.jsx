@@ -5,12 +5,16 @@ function QueryForm({ pdfName }) {
     const [pregunta, setPregunta] = useState('');
     const [respuesta, setRespuesta] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!pregunta) {
             setError('Por favor, escribe una pregunta.');
             return;
         }
+        setLoading(true);
+        setError('');
+        setRespuesta('');
         try {
             const response = await axios.post('http://localhost:5000/query', {
                 pdf_name: pdfName,
@@ -19,11 +23,12 @@ function QueryForm({ pdfName }) {
                 headers: { 'Content-Type': 'application/json' }
             });
             setRespuesta(response.data.respuesta);
-            setError('');
             setPregunta('');
         } catch (error) {
             setError('Error al procesar la pregunta. Verifica que el servidor esté corriendo y el PDF exista.');
             console.error('Error en QueryForm:', error.response || error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -34,13 +39,17 @@ function QueryForm({ pdfName }) {
                 value={pregunta}
                 onChange={(e) => setPregunta(e.target.value)}
                 placeholder="Escribe tu pregunta (ej. ¿Quién es el estudiante que lo realizó? ¿Quiénes son los jurados?)"
-                className="w-full p-4 border border-gray-200 rounded-lg mb-6 resize-y focus:outline-none focus:ring-2 focus:ring-primary"
+                className={`w-full p-4 border border-gray-200 rounded-lg mb-6 resize-y focus:outline-none focus:ring-2 focus:ring-primary ${loading ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                disabled={loading}
             />
             <button
                 onClick={handleSubmit}
-                className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200"
+                disabled={loading}
+                className={`px-6 py-3 rounded-lg text-white font-semibold transition duration-200 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-blue-700'
+                    }`}
             >
-                Enviar Pregunta
+                {loading ? 'Cargando...' : 'Enviar Pregunta'}
             </button>
             {respuesta && (
                 <div className="mt-6 p-4 bg-gray-50 rounded-lg">

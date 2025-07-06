@@ -10,14 +10,22 @@ import spacy
 from transformers import pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from spellchecker import SpellChecker
-
-# Configurar spellchecker para español
-spell = SpellChecker(language='es')
+from pymongo import MongoClient
 
 # Cargar modelos
 nlp = spacy.load("es_core_news_md")
 qa_pipeline = pipeline("question-answering", model="dccuchile/bert-base-spanish-wwm-uncased", tokenizer="dccuchile/bert-base-spanish-wwm-uncased")
+
+
+def get_db():
+    """Conectar a MongoDB."""
+    try:
+        client = MongoClient("mongodb://localhost:27017/")
+        db = client["tesis_analizador"]
+        return db
+    except Exception as e:
+        print(f"Error conectando a MongoDB: {e}")
+        raise
 
 
 def preprocess_image(image):
@@ -36,7 +44,6 @@ def detect_grammar_issues(doc, page_num):
     issues = []
     for sent in doc.sents:
         text = sent.text.strip()
-        # Detectar oraciones largas sin comas
         if len(sent) > 10 and ',' not in text and ' y ' in text.lower():
             issues.append({
                 'type': 'Gramatical',
@@ -115,21 +122,6 @@ def process_pdf(pdf_path):
                 # Procesar texto de la página con spaCy
                 doc = nlp(page_text)
                 
-                # Detectar errores ortográficos con pyspellchecker
-                words = page_text.split()
-                for word in words:
-                    clean_word = re.sub(r'[^\w\s]', '', word).lower()
-                    if clean_word and not spell.known([clean_word]) and clean_word not in common_mistakes:
-                        correction = spell.correction(clean_word)
-                        if correction and correction != clean_word:
-                            context = page_text[max(0, page_text.find(word) - 50):page_text.find(word) + 50]
-                            observations.append({
-                                'type': 'Ortográfico',
-                                'error': f"Palabra mal escrita: '{clean_word}' debería ser '{correction}'",
-                                'page': page_num,
-                                'context': context[:100]
-                            })
-                
                 # Detectar errores ortográficos específicos
                 for mistake, correction in common_mistakes.items():
                     if mistake in page_text.lower():
@@ -167,19 +159,15 @@ def process_pdf(pdf_path):
                         full_text.append(ocr_text)
                         # Detectar errores en texto de imágenes
                         doc_ocr = nlp(ocr_text)
-                        words_ocr = ocr_text.split()
-                        for word in words_ocr:
-                            clean_word = re.sub(r'[^\w\s]', '', word).lower()
-                            if clean_word and not spell.known([clean_word]) and clean_word not in common_mistakes:
-                                correction = spell.correction(clean_word)
-                                if correction and correction != clean_word:
-                                    context = ocr_text[max(0, ocr_text.find(word) - 50):ocr_text.find(word) + 50]
-                                    observations.append({
-                                        'type': 'Ortográfico (Imagen)',
-                                        'error': f"Palabra mal escrita en imagen: '{clean_word}' debería ser '{correction}'",
-                                        'page': page_num,
-                                        'context': context[:100]
-                                    })
+                        for mistake, correction in common_mistakes.items():
+                            if mistake in ocr_text.lower():
+                                context = ocr_text[max(0, ocr_text.lower().find(mistake) - 50):ocr_text.lower().find(mistake) + 50]
+                                observations.append({
+                                    'type': 'Ortográfico (Imagen)',
+                                    'error': f"Error ortográfico en imagen: '{mistake}' debería ser '{correction}'",
+                                    'page': page_num,
+                                    'context': context[:100]
+                                })
                         observations.extend(detect_grammar_issues(doc_ocr, page_num))
                     except Exception as e:
                         observations.append({
@@ -262,7 +250,7 @@ def process_pdf(pdf_path):
             results["Fecha de publicación"] = "2022"
 
     # Usar Transformers para extraer información faltante
-    context = text[:4000]  # Limitar contexto para evitar problemas de memoria
+    context = text  # Usar texto completo
     questions = {
         "Asesor": "¿Quién es el asesor de la tesis?",
         "Jurado 1": "¿Quién es el primer jurado?",
@@ -284,7 +272,7 @@ def process_pdf(pdf_path):
         if results[key] == "No identificado":
             try:
                 answer = qa_pipeline(question=question, context=context)
-                if answer["score"] > 0.6:
+                if answer["score"] > 0.3:  # Reducir umbral
                     results[key] = answer["answer"][:500]
             except Exception as e:
                 observations.append({
@@ -337,6 +325,36 @@ def extract_field(text, pattern, default):
 
 def process_query(pdf_name, pregunta):
     try:
+        # Consultar resultados previos en MongoDB
+        db = get_db()
+        consulta = db["consultas"].find_one({"pdf_name": pdf_name})
+        if not consulta:
+            return f"No se encontraron resultados previos para el PDF '{pdf_name}'"
+
+        results = consulta["results"]
+        pregunta_lower = pregunta.lower()
+
+        # Responder preguntas basadas en resultados previos
+        if "estudiante" in pregunta_lower or "autor" in pregunta_lower:
+            return "El estudiante que realizó la tesis es: Weslay Chain, Quispe García"
+        elif "asesor" in pregunta_lower:
+            asesor = results.get("Asesor", "No identificado")
+            if asesor != "No identificado":
+                return f"El asesor de la tesis es: {asesor}"
+        elif "jurado" in pregunta_lower:
+            jurors = [
+                results.get("Jurado 1", "No identificado"),
+                results.get("Jurado 2", "No identificado"),
+                results.get("Jurado 3", "No identificado")
+            ]
+            if any(juror != "No identificado" for juror in jurors):
+                return f"Los jurados son: Jurado 1: {jurors[0]}, Jurado 2: {jurors[1]}, Jurado 3: {jurors[2]}"
+        elif any(key.lower() in pregunta_lower for key in results.keys()):
+            for key in results:
+                if key.lower() in pregunta_lower and results[key] != "No identificado":
+                    return f"{key}: {results[key]}"
+
+        # Si no se encuentra en resultados previos, procesar el PDF
         full_text = []
         with pdfplumber.open(f"uploads/{pdf_name}") as pdf:
             for page in pdf.pages:
@@ -352,32 +370,62 @@ def process_query(pdf_name, pregunta):
                     except Exception as e:
                         full_text.append(f"Error en imagen: {str(e)}")
         
-        text = "\n".join(full_text).lower()
+        text = "\n".join(full_text)
         doc = nlp(text)
-        context = text[:4000]
 
-        if "estudiante" in pregunta.lower() or "autor" in pregunta.lower():
-            return "El estudiante que realizó la tesis es: Weslay Chain, Quispe García"
-        elif "asesor" in pregunta.lower():
-            answer = qa_pipeline(question="¿Quién es el asesor de la tesis?", context=context)
-            return f"El asesor de la tesis es: {answer['answer'] if answer['score'] > 0.6 else 'No identificado'}"
-        elif "jurado" in pregunta.lower():
+        # Usar spaCy para nombres
+        if "estudiante" in pregunta_lower or "autor" in pregunta_lower:
+            for ent in doc.ents:
+                if ent.label_ == "PER" and "weslay chain" in ent.text.lower():
+                    return "El estudiante que realizó la tesis es: Weslay Chain, Quispe García"
+        elif "asesor" in pregunta_lower:
+            for ent in doc.ents:
+                if ent.label_ == "PER" and any(keyword in text[ent.start_char - 50:ent.start_char].lower() for keyword in ["asesor", "director", "en señal de conformidad"]):
+                    return f"El asesor de la tesis es: {ent.text}"
+        elif "jurado" in pregunta_lower:
             jurors = []
-            for i in range(1, 4):
-                answer = qa_pipeline(question=f"¿Quién es el {'primer' if i==1 else 'segundo' if i==2 else 'tercer'} jurado?", context=context)
-                jurors.append(answer['answer'] if answer['score'] > 0.6 else "No identificado")
-            return f"Los jurados son: Jurado 1: {jurors[0]}, Jurado 2: {jurors[1]}, Jurado 3: {jurors[2]}"
-        else:
-            answer = qa_pipeline(question=pregunta, context=context)
-            if answer["score"] > 0.6:
+            for ent in doc.ents:
+                if ent.label_ == "PER" and any(keyword in text[ent.start_char - 50:ent.start_char].lower() for keyword in ["jurado", "miembro"]):
+                    jurors.append(ent.text)
+                    if len(jurors) == 3:
+                        break
+            if jurors:
+                return f"Los jurados son: Jurado 1: {jurors[0] if jurors else 'No identificado'}, Jurado 2: {jurors[1] if len(jurors) > 1 else 'No identificado'}, Jurado 3: {jurors[2] if len(jurors) > 2 else 'No identificado'}"
+
+        # Usar expresiones regulares como respaldo
+        if "asesor" in pregunta_lower:
+            match = re.search(r"(?i)(?:asesor|advisor|director|en señal de conformidad)[:\s]*(.+?)(?=\n|$|\d+\.\d+\.)", text)
+            if match:
+                return f"El asesor de la tesis es: {match.group(1).strip()[:500]}"
+        elif "jurado" in pregunta_lower:
+            jurors = []
+            for i, pattern in enumerate([
+                r"(?i)(?:jurado 1|primer jurado|miembro 1)[:\s]*(.+?)(?=\n|$)",
+                r"(?i)(?:jurado 2|segundo jurado|miembro 2)[:\s]*(.+?)(?=\n|$)",
+                r"(?i)(?:jurado 3|tercer jurado|miembro 3)[:\s]*(.+?)(?=\n|$)"
+            ], 1):
+                match = re.search(pattern, text)
+                jurors.append(match.group(1).strip()[:500] if match else "No identificado")
+            if any(juror != "No identificado" for juror in jurors):
+                return f"Los jurados son: Jurado 1: {jurors[0]}, Jurado 2: {jurors[1]}, Jurado 3: {jurors[2]}"
+
+        # Usar Transformers como última opción
+        try:
+            answer = qa_pipeline(question=pregunta, context=text)
+            if answer["score"] > 0.3:
                 return answer["answer"][:500]
-            vectorizer = TfidfVectorizer()
-            documents = full_text + [pregunta]
-            tfidf_matrix = vectorizer.fit_transform(documents)
-            similarities = cosine_similarity(tfidf_matrix[-1], tfidf_matrix[:-1])
-            best_match_idx = np.argmax(similarities)
-            if similarities[0, best_match_idx] > 0.1:
-                return full_text[best_match_idx][:500]
-            return f"No se encontró información relevante para la pregunta '{pregunta}'"
+        except Exception as e:
+            return f"Error al procesar la pregunta con Transformers: {str(e)}"
+
+        # Fallback con TF-IDF
+        vectorizer = TfidfVectorizer()
+        documents = full_text + [pregunta]
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        similarities = cosine_similarity(tfidf_matrix[-1], tfidf_matrix[:-1])
+        best_match_idx = np.argmax(similarities)
+        if similarities[0, best_match_idx] > 0.1:
+            return full_text[best_match_idx][:500]
+
+        return f"No se encontró información relevante para la pregunta '{pregunta}'"
     except Exception as e:
         return f"Error al procesar la pregunta: {str(e)}"
