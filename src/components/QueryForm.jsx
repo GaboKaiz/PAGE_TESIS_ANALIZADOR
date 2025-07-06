@@ -28,7 +28,7 @@ function QueryForm({ pdfName }) {
     };
 
     return (
-        <div className="mb-8 bg-white p-6 rounded-lg shadow-md">
+        <div className="mb-8 bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-primary mb-6">Preguntar sobre el PDF</h2>
             <textarea
                 value={pregunta}
