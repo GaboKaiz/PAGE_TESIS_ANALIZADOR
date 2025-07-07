@@ -1,0 +1,4 @@
+PARA CORRER EL REACT DEBEMOS HACER LO SIGUIENTE:
+1. Debemos estar en la carpeta tesis_analizador: cd tesis_analizador
+2. Instalamos dependencias con: npm install
+3. Corremos el react con: npm run dev

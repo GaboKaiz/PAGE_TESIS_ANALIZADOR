@@ -1,0 +1,417 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "CORS",
+        "importPath": "flask_cors",
+        "description": "flask_cors",
+        "isExtraImport": true,
+        "detail": "flask_cors",
+        "documentation": {}
+    },
+    {
+        "label": "process_pdf",
+        "importPath": "pdf_processor",
+        "description": "pdf_processor",
+        "isExtraImport": true,
+        "detail": "pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "process_query",
+        "importPath": "pdf_processor",
+        "description": "pdf_processor",
+        "isExtraImport": true,
+        "detail": "pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "save_consulta",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "save_pregunta",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pdfplumber",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pdfplumber",
+        "description": "pdfplumber",
+        "detail": "pdfplumber",
+        "documentation": {}
+    },
+    {
+        "label": "pytesseract",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytesseract",
+        "description": "pytesseract",
+        "detail": "pytesseract",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "spacy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "spacy",
+        "description": "spacy",
+        "detail": "spacy",
+        "documentation": {}
+    },
+    {
+        "label": "pipeline",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "TfidfVectorizer",
+        "importPath": "sklearn.feature_extraction.text",
+        "description": "sklearn.feature_extraction.text",
+        "isExtraImport": true,
+        "detail": "sklearn.feature_extraction.text",
+        "documentation": {}
+    },
+    {
+        "label": "cosine_similarity",
+        "importPath": "sklearn.metrics.pairwise",
+        "description": "sklearn.metrics.pairwise",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics.pairwise",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "upload_pdf",
+        "kind": 2,
+        "importPath": "backend.app",
+        "description": "backend.app",
+        "peekOfCode": "def upload_pdf():\n    if \"file\" not in request.files:\n        return jsonify({\"error\": \"No file provided\"}), 400\n    file = request.files[\"file\"]\n    if file.filename == \"\":\n        return jsonify({\"error\": \"No file selected\"}), 400\n    if file and file.filename.endswith(\".pdf\"):\n        pdf_path = os.path.join(UPLOAD_FOLDER, file.filename)\n        file.save(pdf_path)\n        try:",
+        "detail": "backend.app",
+        "documentation": {}
+    },
+    {
+        "label": "query_pdf",
+        "kind": 2,
+        "importPath": "backend.app",
+        "description": "backend.app",
+        "peekOfCode": "def query_pdf():\n    try:\n        data = request.get_json()\n        pdf_name = data.get(\"pdf_name\")\n        pregunta = data.get(\"pregunta\")\n        if not pdf_name or not pregunta:\n            return jsonify({\"error\": \"Faltan pdf_name o pregunta\"}), 400\n        respuesta = process_query(pdf_name, pregunta)\n        save_pregunta(pdf_name, pregunta, respuesta, \"user_id_placeholder\")\n        return jsonify({\"respuesta\": respuesta})",
+        "detail": "backend.app",
+        "documentation": {}
+    },
+    {
+        "label": "download_excel",
+        "kind": 2,
+        "importPath": "backend.app",
+        "description": "backend.app",
+        "peekOfCode": "def download_excel(pdf_name):\n    try:\n        db = get_db()\n        consulta = db[\"consultas\"].find_one({\"pdf_name\": pdf_name})\n        if not consulta:\n            return jsonify({\"error\": \"Consulta no encontrada\"}), 404\n        results = consulta[\"results\"]\n        observations = consulta[\"observations\"]\n        df = pd.DataFrame([{\n            **results,",
+        "detail": "backend.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "backend.app",
+        "description": "backend.app",
+        "peekOfCode": "app = Flask(__name__)\nCORS(app, resources={r\"/*\": {\"origins\": \"http://localhost:3000\"}})\nUPLOAD_FOLDER = \"uploads\"\nif not os.path.exists(UPLOAD_FOLDER):\n    os.makedirs(UPLOAD_FOLDER)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_pdf():\n    if \"file\" not in request.files:\n        return jsonify({\"error\": \"No file provided\"}), 400\n    file = request.files[\"file\"]",
+        "detail": "backend.app",
+        "documentation": {}
+    },
+    {
+        "label": "UPLOAD_FOLDER",
+        "kind": 5,
+        "importPath": "backend.app",
+        "description": "backend.app",
+        "peekOfCode": "UPLOAD_FOLDER = \"uploads\"\nif not os.path.exists(UPLOAD_FOLDER):\n    os.makedirs(UPLOAD_FOLDER)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_pdf():\n    if \"file\" not in request.files:\n        return jsonify({\"error\": \"No file provided\"}), 400\n    file = request.files[\"file\"]\n    if file.filename == \"\":\n        return jsonify({\"error\": \"No file selected\"}), 400",
+        "detail": "backend.app",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "backend.db",
+        "description": "backend.db",
+        "peekOfCode": "def get_db():\n    try:\n        client = MongoClient(\"mongodb://localhost:27017/\")\n        db = client[\"tesis_analizador\"]\n        return db\n    except Exception as e:\n        print(f\"Error conectando a MongoDB: {e}\")\n        raise\ndef save_consulta(pdf_name, results, observations, user_id):\n    try:",
+        "detail": "backend.db",
+        "documentation": {}
+    },
+    {
+        "label": "save_consulta",
+        "kind": 2,
+        "importPath": "backend.db",
+        "description": "backend.db",
+        "peekOfCode": "def save_consulta(pdf_name, results, observations, user_id):\n    try:\n        db = get_db()\n        consultas = db[\"consultas\"]\n        consultas.insert_one({\n            \"pdf_name\": pdf_name,\n            \"results\": results,\n            \"observations\": observations,\n            \"user_id\": user_id,\n            \"timestamp\": datetime.now()",
+        "detail": "backend.db",
+        "documentation": {}
+    },
+    {
+        "label": "save_pregunta",
+        "kind": 2,
+        "importPath": "backend.db",
+        "description": "backend.db",
+        "peekOfCode": "def save_pregunta(pdf_name, pregunta, respuesta, user_id):\n    try:\n        db = get_db()\n        preguntas = db[\"preguntas\"]\n        preguntas.insert_one({\n            \"pdf_name\": pdf_name,\n            \"pregunta\": pregunta,\n            \"respuesta\": respuesta,\n            \"user_id\": user_id,\n            \"timestamp\": datetime.now()",
+        "detail": "backend.db",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def get_db():\n    \"\"\"Conectar a MongoDB.\"\"\"\n    try:\n        client = MongoClient(\"mongodb://localhost:27017/\")\n        db = client[\"tesis_analizador\"]\n        return db\n    except Exception as e:\n        print(f\"Error conectando a MongoDB: {e}\")\n        raise\ndef preprocess_image(image):",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "preprocess_image",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def preprocess_image(image):\n    \"\"\"Preprocesar imagen para mejorar el OCR.\"\"\"\n    try:\n        gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)\n        thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)\n        denoised = cv2.fastNlMeansDenoising(thresh)\n        return Image.fromarray(denoised)\n    except Exception as e:\n        return image\ndef detect_grammar_issues(doc, page_num):",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "detect_grammar_issues",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def detect_grammar_issues(doc, page_num):\n    \"\"\"Detectar problemas gramaticales como falta de comas.\"\"\"\n    issues = []\n    for sent in doc.sents:\n        text = sent.text.strip()\n        if len(sent) > 10 and ',' not in text and ' y ' in text.lower():\n            issues.append({\n                'type': 'Gramatical',\n                'error': f\"Falta de coma en oración larga: '{text[:100]}...'\",\n                'page': page_num,",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "process_pdf",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def process_pdf(pdf_path):\n    results = {\n        \"Marca temporal\": \"\",\n        \"Dirección de correo electrónico\": \"\",\n        \"Título de la tesis\": \"\",\n        \"Link de la tesis\": \"\",\n        \"Asesor\": \"\",\n        \"Jurado 1\": \"\",\n        \"Jurado 2\": \"\",\n        \"Jurado 3\": \"\",",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "extract_field",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def extract_field(text, pattern, default):\n    match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)\n    return match.group(1).strip()[:500] if match else default\ndef process_query(pdf_name, pregunta):\n    try:\n        # Consultar resultados previos en MongoDB\n        db = get_db()\n        consulta = db[\"consultas\"].find_one({\"pdf_name\": pdf_name})\n        if not consulta:\n            return f\"No se encontraron resultados previos para el PDF '{pdf_name}'\"",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "process_query",
+        "kind": 2,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "def process_query(pdf_name, pregunta):\n    try:\n        # Consultar resultados previos en MongoDB\n        db = get_db()\n        consulta = db[\"consultas\"].find_one({\"pdf_name\": pdf_name})\n        if not consulta:\n            return f\"No se encontraron resultados previos para el PDF '{pdf_name}'\"\n        results = consulta[\"results\"]\n        pregunta_lower = pregunta.lower()\n        # Responder preguntas basadas en resultados previos",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "nlp",
+        "kind": 5,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "nlp = spacy.load(\"es_core_news_md\")\nqa_pipeline = pipeline(\"question-answering\", model=\"dccuchile/bert-base-spanish-wwm-uncased\", tokenizer=\"dccuchile/bert-base-spanish-wwm-uncased\")\ndef get_db():\n    \"\"\"Conectar a MongoDB.\"\"\"\n    try:\n        client = MongoClient(\"mongodb://localhost:27017/\")\n        db = client[\"tesis_analizador\"]\n        return db\n    except Exception as e:\n        print(f\"Error conectando a MongoDB: {e}\")",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "qa_pipeline",
+        "kind": 5,
+        "importPath": "backend.pdf_processor",
+        "description": "backend.pdf_processor",
+        "peekOfCode": "qa_pipeline = pipeline(\"question-answering\", model=\"dccuchile/bert-base-spanish-wwm-uncased\", tokenizer=\"dccuchile/bert-base-spanish-wwm-uncased\")\ndef get_db():\n    \"\"\"Conectar a MongoDB.\"\"\"\n    try:\n        client = MongoClient(\"mongodb://localhost:27017/\")\n        db = client[\"tesis_analizador\"]\n        return db\n    except Exception as e:\n        print(f\"Error conectando a MongoDB: {e}\")\n        raise",
+        "detail": "backend.pdf_processor",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "node_modules.flatted.python.flatted",
+        "description": "node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0",
+        "detail": "node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "node_modules.flatted.python.flatted",
+        "description": "node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0\n    for _ in value:\n        keys.append(i)\n        i += 1\n    return keys",
+        "detail": "node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "node_modules.flatted.python.flatted",
+        "description": "node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "node_modules.flatted.python.flatted",
+        "description": "node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "node_modules.flatted.python.flatted",
+        "documentation": {}
+    }
+]
